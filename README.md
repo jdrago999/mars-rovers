@@ -55,3 +55,19 @@ Expected Output:
 1 3 N
 5 1 E
 ```
+
+## RUNNING THE TESTS
+
+### Within Docker
+
+```bash
+docker build --no-cache -t covata/rover . && \
+  docker run -t -v $(pwd):/opt/mars-rover covata/rover bundle exec rspec
+```
+
+### On your host OS
+
+```bash
+bundle
+bundle exec rspec
+```
