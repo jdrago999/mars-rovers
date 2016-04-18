@@ -53,12 +53,6 @@ describe Mars::Mission do
           y_position: 1,
           orientation: 'N',
           actions: []
-        },
-        {
-          x_position: 1,
-          y_position: 2,
-          orientation: 'S',
-          actions: []
         }
       ]
     end
@@ -78,7 +72,6 @@ describe Mars::Mission do
         before do
           @fake_rover = double('rover')
           expect(@fake_rover).to receive(:execute!){ 'test-result' }
-          @rover_args.shift
           expect(Mars::Rover).to receive(:new).with(@rover_args.first){ @fake_rover }
           @mission = described_class.new(
             plateau_args: @plateau_args,
