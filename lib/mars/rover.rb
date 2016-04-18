@@ -10,25 +10,48 @@ module Mars
         \s
         (?<orientation>[NSEW])
         \n
-        (?<movements>[LRM]+)
+        (?<actions>[LRM]+)
       }x.match(input) or raise InvalidRoverCommandError.new 'The input "%s" is invalid.' % input
       command = Hash[ match.names.map(&:to_sym).zip( match.captures ) ]
 
-      # Also parse the movements:
-      command[:movements] = command[:movements].split(//)
+      # Also parse the actions:
+      command[:actions] = command[:actions].split(//)
       command
     end
 
-    attr_reader :movements
+    attr_reader :actions
     attr_accessor :x_position, :y_position, :orientation
-    def initialize(x_position:, y_position:, orientation:, movements:)
+    def initialize(x_position:, y_position:, orientation:, actions:)
       @x_position = x_position
       @y_position = y_position
       @orientation = orientation
-      @movements = movements
+      @actions = actions
+    end
+
+    def position
+      [
+        x_position,
+        y_position,
+        orientation
+      ].join(' ')
     end
 
     def execute!
+      actions.map do |action|
+        case action
+        when 'L', 'R'
+          rotate(action)
+        when 'M'
+          move
+        end
+      end
+    end
+
+    private
+    def move
+    end
+
+    def rotate(direction)
     end
   end
 end

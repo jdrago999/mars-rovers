@@ -23,4 +23,29 @@ describe Mars::Rover do
       end
     end
   end
+
+  describe '#position' do
+    before do
+      @rover = described_class.new(
+        x_position: 0,
+        y_position: 0,
+        orientation: 'N',
+        actions: [ ]
+      )
+    end
+    it 'returns the current position of the rover' do
+      expect(@rover.position).to eq '0 0 N'
+    end
+  end
+
+  describe '#execute!' do
+    context 'when there are' do
+      context 'no actions' do
+        it 'returns its original position'
+      end
+      context 'some actions' do
+        it 'returns its new position'
+      end
+    end
+  end
 end

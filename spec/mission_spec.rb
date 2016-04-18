@@ -52,13 +52,13 @@ describe Mars::Mission do
           x_position: 0,
           y_position: 1,
           orientation: 'N',
-          movements: []
+          actions: []
         },
         {
           x_position: 1,
           y_position: 2,
           orientation: 'S',
-          movements: []
+          actions: []
         }
       ]
     end
