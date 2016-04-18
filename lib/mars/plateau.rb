@@ -5,7 +5,6 @@ module Mars
     def self.parse_command(input)
       match = /^(?<width>\d+)\s(?<height>\d+)$/.match(input) or raise InvalidPlateauCommandError.new 'The command "%s" is invalid' % input
       command = Hash[ match.names.map(&:to_sym).zip( match.captures ) ]
-      command.keys.sort == [:height, :width] or raise InvalidPlateauCommandError.new 'The command "%s" is invalid' % input
       command
     end
 
