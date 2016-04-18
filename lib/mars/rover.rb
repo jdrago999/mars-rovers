@@ -3,15 +3,16 @@ module Mars
   class InvalidRoverCommandError < StandardError; end
   class Rover
     def self.parse_command(input)
-      match = %r{
+      match = %r{^
         (?<x_position>\d+)
         \s+
         (?<y_position>\d+)
-        \s
-        (?<orientation>[NSEW])
+        \s+
+        (?<orientation>[NESW])
         \n
         (?<actions>[LRM]+)
-      }x.match(input) or raise InvalidRoverCommandError.new 'The input "%s" is invalid.' % input
+        \n*
+      $}x.match(input) or raise InvalidRoverCommandError.new 'The input "%s" is invalid.' % input
       command = Hash[ match.names.map(&:to_sym).zip( match.captures ) ]
 
       # Also parse the actions:
@@ -20,12 +21,12 @@ module Mars
     end
 
     attr_reader :actions
-    attr_accessor :x_position, :y_position, :orientation
+    attr_accessor :x_position, :y_position, :orientation, :compass
     def initialize(x_position:, y_position:, orientation:, actions:)
-      @x_position = x_position
-      @y_position = y_position
-      @orientation = orientation
-      set_compass
+      self.x_position = x_position.to_i
+      self.y_position = y_position.to_i
+      self.orientation = orientation
+      init_compass
       @actions = actions
     end
 
@@ -46,16 +47,17 @@ module Mars
           move
         end
       end
+      position
     end
 
     def rotate(direction)
       case direction
       when 'R'
-        @compass.push( @compass.shift )
+        compass.push( @compass.shift )
       when 'L'
-        @compass.unshift( @compass.pop )
+        compass.unshift( @compass.pop )
       end
-      @orientation = @compass.first
+      self.orientation = compass.first
     end
 
     def move
@@ -73,10 +75,10 @@ module Mars
 
     private
 
-    def set_compass
-      @compass = %w(N E S W).to_a
+    def init_compass
+      self.compass = %w(N E S W).to_a
       wanted_orientation = orientation
-      until @compass.first == wanted_orientation do
+      until compass.first == wanted_orientation do
         rotate('L')
       end
     end
