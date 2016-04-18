@@ -25,6 +25,7 @@ module Mars
       @x_position = x_position
       @y_position = y_position
       @orientation = orientation
+      set_compass
       @actions = actions
     end
 
@@ -47,11 +48,37 @@ module Mars
       end
     end
 
-    private
-    def move
+    def rotate(direction)
+      case direction
+      when 'R'
+        @compass.push( @compass.shift )
+      when 'L'
+        @compass.unshift( @compass.pop )
+      end
+      @orientation = @compass.first
     end
 
-    def rotate(direction)
+    def move
+      case orientation
+      when 'N'
+        self.y_position += 1
+      when 'E'
+        self.x_position += 1
+      when 'S'
+        self.y_position += -1
+      when 'W'
+        self.x_position += -1
+      end
+    end
+
+    private
+
+    def set_compass
+      @compass = %w(N E S W).to_a
+      wanted_orientation = orientation
+      until @compass.first == wanted_orientation do
+        rotate('L')
+      end
     end
   end
 end
