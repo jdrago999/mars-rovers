@@ -67,6 +67,8 @@ docker build --no-cache -t covata/rover . && \
 
 ### On your host OS
 
+NOTE: Requires Ruby 2.3.0+
+
 ```bash
 bundle
 bundle exec rspec
@@ -89,6 +91,8 @@ docker run -t -v $(pwd):/opt/mars-rover covata/rover bundle exec bin/dispatch-ro
 ```
 
 ### On your host OS
+
+NOTE: Requires Ruby 2.3.0+
 
 ```
 bundle
