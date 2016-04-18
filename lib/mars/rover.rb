@@ -39,7 +39,7 @@ module Mars
     end
 
     def execute!
-      actions.map do |action|
+      actions.each do |action|
         case action
         when 'L', 'R'
           rotate(action)
