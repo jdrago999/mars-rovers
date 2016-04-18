@@ -41,4 +41,41 @@ describe Mars::Mission do
       end
     end
   end
+  describe '#execute!' do
+    before do
+      @plateau_args = {
+        width: 5,
+        height: 5
+      }
+      @rover_args = [
+        {
+          x_position: 0,
+          y_position: 1,
+          orientation: 'N',
+          movements: []
+        },
+        {
+          x_position: 1,
+          y_position: 2,
+          orientation: 'S',
+          movements: []
+        }
+      ]
+    end
+    context 'when there are' do
+      context 'no rovers' do
+        before do
+          @mission = described_class.new(
+            plateau_args: @plateau_args,
+            rover_args: [ ]
+          )
+        end
+        it 'returns an empty array' do
+          expect(@mission.execute!).to be_empty
+        end
+      end
+      context 'some rovers' do
+      end
+    end
+  end
 end

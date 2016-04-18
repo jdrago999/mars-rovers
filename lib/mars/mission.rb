@@ -14,11 +14,11 @@ module Mars
         Mars::Rover.parse_command( rover_command.join.chomp )
       end
 
-      self.new(plateau_args, rover_args).execute!
+      self.new(plateau_args: plateau_args, rover_args: rover_args).execute!
     end
 
     attr_reader :plateau, :rovers
-    def initialize(plateau_args, rover_args)
+    def initialize(plateau_args:, rover_args:)
       @plateau = Mars::Plateau.new(plateau_args)
       @rovers = rover_args.map{ |args| Mars::Rover.new(args) }
     end
