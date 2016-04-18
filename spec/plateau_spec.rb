@@ -25,4 +25,30 @@ describe Mars::Plateau do
       end
     end
   end
+
+  describe '.parse_command(dimensions)' do
+    context 'when the dimensions' do
+      context 'are valid' do
+        before do
+          @input = '5 5'
+        end
+        it 'returns a hash' do
+          expect(described_class.parse_command(@input)).to be_a Hash
+        end
+        context 'the hash returned' do
+          let(:subject) { described_class.parse_command(@input) }
+          it { should have_key :width }
+          it { should have_key :height }
+        end
+      end
+      context 'are invalid' do
+        before do
+          @input = 'hello world!'
+        end
+        it 'raises an exception' do
+          expect{described_class.parse_command(@input)}.to raise_error Mars::InvalidPlateauCommandError
+        end
+      end
+    end
+  end
 end
