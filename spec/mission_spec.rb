@@ -75,6 +75,20 @@ describe Mars::Mission do
         end
       end
       context 'some rovers' do
+        before do
+          @fake_rover = double('rover')
+          expect(@fake_rover).to receive(:execute!){ 'test-result' }
+          @rover_args.shift
+          expect(Mars::Rover).to receive(:new).with(@rover_args.first){ @fake_rover }
+          @mission = described_class.new(
+            plateau_args: @plateau_args,
+            rover_args: @rover_args
+          )
+        end
+        it 'calls execute! on all rovers' do
+          result = @mission.execute!
+          expect(result).to eq ['test-result']
+        end
       end
     end
   end
