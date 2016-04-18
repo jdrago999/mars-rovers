@@ -1,4 +1,8 @@
 
+require 'simplecov'
+SimpleCov.start
+SimpleCov.minimum_coverage 100
+
 require 'rspec'
 require 'bundler/setup'
 require 'byebug'
