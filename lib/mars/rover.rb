@@ -25,8 +25,7 @@ module Mars
     def initialize(x_position:, y_position:, orientation:, actions:)
       self.x_position = x_position.to_i
       self.y_position = y_position.to_i
-      self.orientation = orientation
-      init_compass
+      init_compass(orientation)
       @actions = actions
     end
 
@@ -75,10 +74,9 @@ module Mars
 
     private
 
-    def init_compass
+    def init_compass(wanted_orientation)
       self.compass = %w(N E S W).to_a
-      wanted_orientation = orientation
-      until compass.first == wanted_orientation do
+      until orientation == wanted_orientation do
         rotate('L')
       end
     end
