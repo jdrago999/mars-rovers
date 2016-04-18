@@ -71,3 +71,26 @@ docker build --no-cache -t covata/rover . && \
 bundle
 bundle exec rspec
 ```
+
+## Running the Code
+
+### Within Docker
+
+(First, build the container):
+
+```bash
+docker build --no-cache -t covata/rover .
+```
+
+(Then, you can run tests as many times as you want)
+
+```bash
+docker run -t -v $(pwd):/opt/mars-rover covata/rover bundle exec bin/dispatch-rovers spec/fixtures/input.txt
+```
+
+### On your host OS
+
+```
+bundle
+bundle exec bin/dispatch-rovers spec/fixtures/input.txt
+```
