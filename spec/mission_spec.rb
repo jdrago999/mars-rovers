@@ -47,14 +47,6 @@ describe Mars::Mission do
         width: 5,
         height: 5
       }
-      @rover_args = [
-        {
-          x_position: 0,
-          y_position: 1,
-          orientation: 'N',
-          actions: []
-        }
-      ]
     end
     context 'when there are' do
       context 'no rovers' do
@@ -70,6 +62,14 @@ describe Mars::Mission do
       end
       context 'some rovers' do
         before do
+          @rover_args = [
+            {
+              x_position: 0,
+              y_position: 1,
+              orientation: 'N',
+              actions: []
+            }
+          ]
           @fake_rover = double('rover')
           expect(@fake_rover).to receive(:execute!){ 'test-result' }
           expect(Mars::Rover).to receive(:new).with(@rover_args.first){ @fake_rover }
