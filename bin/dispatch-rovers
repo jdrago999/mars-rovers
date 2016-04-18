@@ -9,7 +9,7 @@ require 'mars'
 input_file = ARGV.shift
 begin
   File.open(input_file, 'r') do |file|
-    Mars::Mission.dispatch(file.read)
+    Mars::Mission.dispatch(file)
   end
 rescue StandardError => e
   raise 'Could not open input file %s: %s' % [input_file, e.to_s]
